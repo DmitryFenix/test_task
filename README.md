@@ -32,6 +32,10 @@ test-task/
 ├── migrations/              # Миграции goose
 ├── docker-compose.yml       # Docker Compose конфигурация
 ├── Dockerfile              # Docker образ
+├── entrypoint.sh           # Entrypoint скрипт для Docker
+├── go.mod                  # Go модули
+├── .gitignore              # Git ignore правила
+├── .dockerignore           # Docker ignore правила
 └── README.md               # Документация
 ```
 
@@ -47,20 +51,22 @@ cd test-task
 
 2. Запустите приложение:
 ```bash
-docker-compose up --build
+docker compose up --build
 ```
+
+**Примечание:** В новых версиях Docker используется команда `docker compose` (без дефиса). Если у вас старая версия, используйте `docker-compose`.
 
 Приложение будет доступно по адресу `http://localhost:8080`
 
 ### Остановка
 
 ```bash
-docker-compose down
+docker compose down
 ```
 
 Для удаления данных БД:
 ```bash
-docker-compose down -v
+docker compose down -v
 ```
 
 ## API Endpoints
@@ -236,6 +242,8 @@ goose -dir migrations postgres "postgres://postgres:postgres@localhost:5432/qa_d
 - **Логирование**: использование стандартного log пакета
 - **Тесты**: unit тесты для сервисов и HTTP тесты для handlers
 - **Миграции**: использование goose для управления схемой БД
+- **Retry-логика**: автоматические повторные попытки подключения к БД
+- **WSL совместимость**: entrypoint-скрипт для решения проблем DNS в WSL
 
 ## Критерии оценки (выполнено)
 
